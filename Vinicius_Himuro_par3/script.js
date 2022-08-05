@@ -5,60 +5,33 @@ const clicou = (idInput, idResp) =>{
     alert("Insira um valor")
     return
   }
-  let textoTratado
-  if(idInput === "transposicao") textoTratado = encriptTransposicao(texto)
-  else textoTratado = substituicao(texto,idInput)
+  let textoTratado = idInput === ("tranposicao" || "detransposicao") ? transposicao(texto) : substituicao(texto, idInput)
   document.getElementById(idResp).value = textoTratado
 }
 
-const dencriptSubstituicao = (texto) =>{
+const substituicao = (texto, idInput) => {
   let resposta = ""
   for(let i = 0; i<texto.length; i++){
     let codeAtual = texto.charCodeAt(i)
     let charAtual = texto.charAt(i)
-    if(codeAtual < 65 || codeAtual > 122){ //fora de A-z
+    let novoCode
+    let novoChar
+    if(naoMuda(codeAtual)){ 
       resposta = resposta + charAtual
       continue
     } 
-    if(codeAtual > 90 && codeAtual < 97){ //entre Z e a
-      resposta = resposta + charAtual
-      continue
-    }
-    if(codeAtual === 65 || codeAtual === 97){  //Z ou z
-      let novoCode = codeAtual + 25
-      let novoChar = String.fromCharCode(novoCode)
-      resposta = resposta + novoChar
-      continue
-    }
-    let novoCode = codeAtual - 1
-    let novoChar = String.fromCharCode(novoCode)
+    novoCode = idInput === "substituicao" ? codeAtual + 1 : codeAtual - 1
+    if ((codeAtual === 90 || codeAtual === 122) && idInput === "substituicao") novoCode = codeAtual - 25
+    if ((codeAtual === 65 || codeAtual === 97) && idInput === "desubstituicao") novoCode = codeAtual + 25
+    novoChar = String.fromCharCode(novoCode)
     resposta = resposta + novoChar
   }
   return resposta
 }
 
-const encriptSubstituicao = (texto) =>{
-  let resposta = ""
-  for(let i = 0; i<texto.length; i++){
-    let codeAtual = texto.charCodeAt(i)
-    let charAtual = texto.charAt(i)
-    if(codeAtual < 65 || codeAtual > 122){ //fora de A-z
-      resposta = resposta + charAtual
-      continue
-    } 
-    if(codeAtual > 90 && codeAtual < 97){ //entre Z e a
-      resposta = resposta + charAtual
-      continue
-    }
-    if(codeAtual === 90 || codeAtual === 122){  //Z ou z
-      let novoCode = codeAtual - 25
-      let novoChar = String.fromCharCode(novoCode)
-      resposta = resposta + novoChar
-      continue
-    }
-    let novoCode = codeAtual + 1
-    let novoChar = String.fromCharCode(novoCode)
-    resposta = resposta + novoChar
-  }
-  return resposta
-}
+const naoMuda = (codeAtual) => {
+  if(codeAtual < 65) return true  //menor que A
+  if(codeAtual > 122) return true //maior que z
+  if(codeAtual > 90 && codeAtual < 97) return true //entre Z e a
+  return false
+} 
