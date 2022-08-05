@@ -59,6 +59,6 @@ const clicou = (idInput, idResp) =>{
     alert("Insira um valor")
     return
   }
-  let textoTratado = idInput === ("transposicao" || "detransposicao") ? transposicao(texto) : substituicao(texto, idInput)
+  let textoTratado = (idInput === "transposicao" || idInput === "detransposicao") ? transposicao(texto) : substituicao(texto, idInput)
   document.getElementById(idResp).value = textoTratado
 }
