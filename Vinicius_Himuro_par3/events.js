@@ -26,7 +26,7 @@ inputTransposicao.addEventListener("keyup", (event) => {
   }
 })
 
-inputTransposicao.addEventListener("keyup", (event) => {
+inputDetransposicao.addEventListener("keyup", (event) => {
   if(event.key === 'Enter'){
     btnDetransposicao.click()
   }
