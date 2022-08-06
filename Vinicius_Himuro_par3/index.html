@@ -4,42 +4,56 @@
     <title>Criptografia</title>
     <script type="text/javascript" src="script.js" defer></script>
     <script type="text/javascript" src="events.js" defer></script>
+    <link rel ="stylesheet" href="styles.css">
   </head>
   <body>
     <header>
-      <h1>Criptografia - Substituicao</span>
-      <h3>Autor: Vinícius Himuro Augusto</h3>
+      <span>Criptografia - Participação 3</span>
     </header>
-    <div class="substituicao">
-      <span>Insira o texto a ser encriptado por substituição</span>
-      <br>
-      <textarea type = "text" cols="50" rows="7" id= "substituicao" placeholder="blablabla"></textarea>
-      <textarea type = "text" cols="50" rows="7" id = "respSubs" placeholder="blablabla" readonly></textarea>
-      <br>
-      <input type="button" id="btnSubstituicao" onclick="clicou('substituicao','respSubs')" value="Clique aqui">
+    <div class="subtitulo">
+      <span>Substituição</span>
     </div>
-    <div class="desubstituicao">
-      <span>Insira o texto a ser decriptado por substituição</span>
-      <br>
-      <textarea type = "text" cols="50" rows="7" id= "desubstituicao" placeholder="cmbcmbcmb"></textarea>
-      <textarea type = "text" cols="50" rows="7" id = "respDesubs" placeholder="blablabla" readonly></textarea>
-      <br>
-      <input type="button" id="btnDesubstituicao" onclick="clicou('desubstituicao','respDesubs')" value="Clique aqui">
+    <div class="bloco">
+      <div class="coluna">
+        <span>Insira abaixo o texto a ser encriptado por substituição:</span>
+        <br>
+        <textarea type = "text" cols="50" rows="7" id= "substituicao" placeholder="blablabla"></textarea>
+        <textarea type = "text" cols="50" rows="7" id = "respSubs" placeholder="blablabla" readonly></textarea>
+        <br>
+        <input type="button" id="btnSubstituicao" onclick="clicou('substituicao','respSubs')" value="Encriptar">
+      </div>
+      <div class="coluna">
+        <span>Insira abaixo o texto a ser decriptado por substituição:</span>
+        <br>
+        <textarea type = "text" cols="50" rows="7" id= "desubstituicao" placeholder="cmbcmbcmb"></textarea>
+        <textarea type = "text" cols="50" rows="7" id = "respDesubs" placeholder="blablabla" readonly></textarea>
+        <br>
+        <input type="button" id="btnDesubstituicao" onclick="clicou('desubstituicao','respDesubs')" value="Decriptar">
+      </div>
     </div>
-    <div class="transposicao">
-      <span>Insira o texto a ser encriptado por transposição</span>
-      <br>
-      <textarea type = "text" cols="50" rows="7" id= "transposicao" placeholder="blablabla"></textarea>
-      <textarea type = "text" cols="50" rows="7" id = "respTransp" placeholder="lbbaallba" readonly></textarea>
-      <br>
-      <input type="button" id="btnTransposicao" onclick="clicou('transposicao','respTransp')" value="Clique aqui">
+    <div class="subtitulo">
+      <span>Transposição</span>
     </div>
-    <div class="detransposicao">
-      <span>Insira o texto a ser decriptado por transposição</span>
-      <br>
-      <textarea type = "text" cols="50" rows="7" id= "detransposicao" placeholder="lbbaallba"></textarea>
-      <textarea type = "text" cols="50" rows="7" id = "respDetransp" placeholder="blablabla" readonly></textarea>
-      <br>
-      <input type="button" id="btnDetransposicao" onclick="clicou('detransposicao','respDetransp')" value="Clique aqui">
+    <div class="bloco">
+      <div class="coluna">
+        <span>Insira abaixo o texto a ser encriptado por transposição:</span>
+        <br>
+        <textarea type = "text" cols="50" rows="7" id= "transposicao" placeholder="blablabla"></textarea>
+        <textarea type = "text" cols="50" rows="7" id = "respTransp" placeholder="lbbaallba" readonly></textarea>
+        <br>
+        <input type="button" id="btnTransposicao" onclick="clicou('transposicao','respTransp')" value="Encriptar">
+      </div>
+      <div class="coluna">
+        <span>Insira abaixo o texto a ser decriptado por transposição:</span>
+        <br>
+        <textarea type = "text" cols="50" rows="7" id= "detransposicao" placeholder="lbbaallba"></textarea>
+        <textarea type = "text" cols="50" rows="7" id = "respDetransp" placeholder="blablabla" readonly></textarea>
+        <br>
+        <input type="button" id="btnDetransposicao" onclick="clicou('detransposicao','respDetransp')" value="Decriptar">
+      </div>
     </div>
+    <footer>
+      <span>Criado por Vinícius Himuro Augusto. Prontuário: BI300032x</span>
+    </footer>
+  </body>
 </html>
