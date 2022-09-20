@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criptografia</title>
+    <style>
+        body{
+            background-color: #333;
+            color: #fff;
+        }
+        div.titulo{
+            display: flex;
+            justify-content: center;
+            color: #fff;
+        }
+        div.blocos{
+            display: flex;
+            justify-content: space-evenly;
+        }
+        div.bloco{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        label{
+            font-weight: bold;
+            font-size: 20px;
+        }
+        span{
+            font-weight: bolder;
+            font-size: 40px;
+        }
+        button{
+            font-size: 15px;
+            background-color: rgb(56, 29, 180);
+            color: #fff;
+            border-radius: 5px;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class = "titulo">
+        <span>CRIPTOGRAFIA</span>
+    </div>
+    <br>
+    <br>
+    <div class="blocos">
+        <div class="bloco">
+            <span>Cifra Homofônica</span>
+            <br>
+            <label for="mensagem">Mensagem:</label>
+            <input type="text" id="mensagem" name="mensagem" size="50">
+            <br>
+            <div class="btn">
+                <button onclick="cifrar()">Cifrar</button>
+                <button onclick="decifrar()">Decifrar</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const tabela = [['+', 'K', 'V', 'S'], ['M'], ['F'], ['N'], ['B', 'A', 'Q'], ['R'], ['/'], ['G'], ['U'], ['@'], ['H'], ['X'], ['$'], ['C'], ['Z'],
+        ['%'], ['J'], ['L'], ['D'], ['&'], ['E'], ['Y'], ['*'], ['T'], ['P']]
+
+        const alfabeto = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+
+        const validar = () => {
+            let mensagem = document.getElementById("mensagem").value
+            if(!mensagem) {
+                alert("Insira uma mensagem!")
+                return false
+            }
+            return true
+        }
+
+        const cifrar = () => {
+            if(!validar()) return
+            const msg = document.getElementById("mensagem").value
+            const msgUpper = msg.toUpperCase()
+            let resultado = ''
+            for (let i = 0; i< msg.length; i++) {
+                let caracter = msgUpper[i]
+                let posicao = alfabeto.indexOf(caracter)
+                if (posicao === -1) {
+                    resultado = `${resultado}${caracter}`
+                    continue
+                }
+                let posicaoC = tabela[posicao]
+                let randomIndex = Math.floor(Math.random() * posicaoC.length)
+                let caracterC = posicaoC[randomIndex]
+                resultado = `${resultado}${caracterC}`
+            }
+            alert(`Mensagem Cifrada: ${resultado}`)
+        }
+
+        const decifrar = () => {
+            if(!validar()) return
+            const msg = document.getElementById("mensagem").value
+            const msgUpper = msg.toUpperCase()
+            let resultado = ''
+            for (let i = 0; i< msg.length; i++) {
+                let posicao 
+                let letra = msg[i]
+                for(let j = 0; j < tabela.length; j++) {
+                    posicao = tabela[j].indexOf(msgUpper[i])
+                    if(posicao !== -1){
+                        posicao = j
+                        letra = alfabeto[posicao]
+                        break
+                    }
+                }
+                resultado = `${resultado}${letra}`
+            }
+            alert(`Mensagem Decifrada: ${resultado}`)
+        }
+
+
+
+
+        
+    </script>
+</body>
+</html>
