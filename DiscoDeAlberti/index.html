@@ -154,7 +154,7 @@
                 return false
             }
             if(chave.length !== 3){
-                alert("A chave deve conter 3 caracteres!")
+                alert("A chave deve conter 2 caracteres e um número! Ex: Oc2")
                 return false
             }
             if((!(tabelaA.some(elem => elem === chave[0]))) || (!(tabelaB.some(elem => elem === chave[1]))) || (!(nums.some(elem => elem === chave[2]))) ){
@@ -289,15 +289,51 @@
         }
 
         const cifrar3 = () => {
-            if(!validar3()) return
+            if(!validar3()) return;
+            const msg = document.getElementById("mensagem3").value;
+            const chave = document.getElementById("chave3").value;
+            const indexLetraDiscoFixo = tabelaA.findIndex(elem => elem === chave[0]);
+            const indexLetraDiscoMovel = tabelaB.findIndex(elem => elem === chave[1]);
+            const numeroConversaoInicial = (indexLetraDiscoMovel - indexLetraDiscoFixo) + tabelaA.length;
+            const numeroDeslocamento = parseInt(chave[2]);
+            let resultado = '';
+            for(let i = 0; i< msg.length; i++){
+                let letra = msg[i];
+                let numeroConversao = numeroConversaoInicial - (i*numeroDeslocamento)
+                if(tabelaA.some(elem => elem === letra)){
+                    resultado = `${resultado}${letra}`;
+                    continue
+                }
+                let indexLetraDiscoFixo = tabelaA.findIndex(elem => elem === letra.toUpperCase());
+                let index = Math.abs((indexLetraDiscoFixo + numeroConversao)%24);
+                resultado = `${resultado}${tabelaB[index]}`;
+            }
+            alert(resultado);
         }
 
         const decifrar3 = () => {
-            if(!validar3()) return
+            if(!validar3()) return;
+            const msg = document.getElementById("mensagem3").value;
+            const chave = document.getElementById("chave3").value;
+            const indexLetraDiscoFixo = tabelaA.findIndex(elem => elem === chave[0]);
+            const indexLetraDiscoMovel = tabelaB.findIndex(elem => elem === chave[1]);
+            const numeroConversaoInicial = (indexLetraDiscoFixo - indexLetraDiscoMovel) + tabelaA.length;
+            const numeroDeslocamento = parseInt(chave[2]);
+            let resultado = '';
+            for(let i = 0; i< msg.length; i++){
+                let letra = msg[i];
+                let numeroConversao = numeroConversaoInicial + (i*numeroDeslocamento)
+                if(tabelaA.some(elem => elem === letra)){
+                    resultado = `${resultado}${letra}`;
+                    continue
+                }
+                let indexLetraDiscoFixo = tabelaB.findIndex(elem => elem === letra);
+                let index = (indexLetraDiscoFixo + numeroConversao)%24;
+                let letraR = tabelaA[index].toLowerCase();
+                resultado = `${resultado}${letraR}`;
+            }
+            alert(resultado);
         }
-
-
-        
     </script>
 </body>
 </html>
