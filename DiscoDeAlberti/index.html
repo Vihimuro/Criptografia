@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criptografia</title>
+    <style>
+        body{
+            background-color: #333;
+            color: #fff;
+        }
+        div.titulo{
+            display: flex;
+            justify-content: center;
+            color: #fff;
+        }
+        div.blocos{
+            display: flex;
+            justify-content: space-evenly;
+        }
+        div.bloco{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        label{
+            font-weight: bold;
+            font-size: 20px;
+        }
+        span{
+            font-weight: bolder;
+            font-size: 40px;
+        }
+        button{
+            font-size: 15px;
+            background-color: rgb(56, 29, 180);
+            color: #fff;
+            border-radius: 5px;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class = "titulo">
+        <span>CRIPTOGRAFIA</span>
+    </div>
+    <br>
+    <br>
+    <div class="blocos">
+        <div class="bloco">
+            <span>Disco de Alberti 1</span>
+            <br>
+            <label for="mensagem1">Mensagem:</label>
+            <input type="text" id="mensagem1" name="mensagem1" size="50">
+            <br>
+            <label for="chave1">Chave:</label>
+            <input type="text" id="chave1" name="chave1" size="30">
+            <br>
+            <div class="btn">
+                <button onclick="cifrar1()">Cifrar</button>
+                <button onclick="decifrar1()">Decifrar</button>
+            </div>
+        </div>
+        <div class="bloco">
+            <span>Disco de Alberti 2</span>
+            <br>
+            <label for="mensagem2">Mensagem:</label>
+            <input type="text" id="mensagem2" name="mensagem2" size="50">
+            <br>
+            <label for="chave2">Chave:</label>
+            <input type="text" id="chave2" name="chave2" size="30">
+            <br>
+            <div class="btn">
+                <button onclick="cifrar2()">Cifrar</button>
+                <button onclick="decifrar2()">Decifrar</button>
+            </div>
+        </div>
+        <div class="bloco">
+            <span>Disco de Alberti 3</span>
+            <br>
+            <label for="mensagem3">Mensagem:</label>
+            <input type="text" id="mensagem3" name="mensagem3" size="50">
+            <br>
+            <label for="chave3">Chave:</label>
+            <input type="text" id="chave3" name="chave3" size="30">
+            <br>
+            <div class="btn">
+                <button onclick="cifrar3()">Cifrar</button>
+                <button onclick="decifrar3()">Decifrar</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const tabelaA = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'I', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'V', 'X', 'Z', '1', '2', '3', '4'];
+        const tabelaB = ['g', 'k', 'l', 'n', 'p', 'r', 't', 'v', 'z', '&', 'x', 'y', 's', 'o', 'm', 'q', 'i', 'h', 'f', 'd', 'b', 'a', 'c', 'e']
+        const nums = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+
+        const validar1 = () => {
+            let mensagem = document.getElementById("mensagem1").value
+            if(!mensagem) {
+                alert("Insira uma mensagem!")
+                return false
+            }
+            let chave = document.getElementById("chave1").value
+            if(!chave) {
+                alert("Insira uma chave!")
+                return false
+            }
+            if(chave.length !== 1){
+                alert("A chave deve conter somente um caractere!")
+                return false
+            }
+            if(!(tabelaB.some(elem => elem === chave))){
+                alert("Caractere inválido!")
+                return false
+            }
+            return true
+        }
+
+        const validar2 = () => {
+            let mensagem = document.getElementById("mensagem2").value
+            if(!mensagem) {
+                alert("Insira uma mensagem!")
+                return false
+            }
+            let chave = document.getElementById("chave2").value
+            if(!chave) {
+                alert("Insira uma chave!")
+                return false
+            }
+            if(chave.length !== 1){
+                alert("A chave deve conter somente um caractere!")
+                return false
+            }
+            if(!(tabelaB.some(elem => elem === chave))){
+                alert("Caractere inválido!")
+                return false
+            }
+            return true
+        }
+
+        const validar3 = () => {
+            let mensagem = document.getElementById("mensagem3").value
+            if(!mensagem) {
+                alert("Insira uma mensagem!")
+                return false
+            }
+            let chave = document.getElementById("chave3").value
+            if(!chave) {
+                alert("Insira uma chave!")
+                return false
+            }
+            if(chave.length !== 3){
+                alert("A chave deve conter 3 caracteres!")
+                return false
+            }
+            if((!(tabelaA.some(elem => elem === chave[0]))) || (!(tabelaB.some(elem => elem === chave[1]))) || (!(nums.some(elem => elem === chave[2]))) ){
+                alert("Chave Inválida!")
+                return false
+            }
+            return true
+        }
+
+        const cifrar1 = () => {
+            if(!validar1()) return;
+            const msg = document.getElementById("mensagem1").value;
+            const chave = document.getElementById("chave1").value;
+            let numeroConversao = -1;
+            const indexChave = tabelaB.findIndex(elem => elem === chave);
+            let resultado = '';
+            for(let i = 0; i< msg.length; i++){
+                let letra = msg[i];
+                if(tabelaA.some(elem => elem === letra)){
+                    let indexMensagem = tabelaA.findIndex(elem => elem === letra);
+                    numeroConversao = (indexChave - indexMensagem) + tabelaA.length;
+                    resultado = `${resultado}${letra}`;
+                    continue
+                }
+                if(numeroConversao == -1){
+                    alert("Mensagem inválida!");
+                    return
+                }
+                let indexMensagem = tabelaA.findIndex(elem => elem === letra.toUpperCase());
+                let index = (indexMensagem + numeroConversao)%24;
+                resultado = `${resultado}${tabelaB[index]}`
+            }
+            alert(resultado);
+        }
+
+        const decifrar1 = () => {
+            if(!validar1()) return;
+            const msg = document.getElementById("mensagem1").value;
+            const chave = document.getElementById("chave1").value;
+            let numeroConversao = -1;
+            const indexChave = tabelaB.findIndex(elem => elem === chave);
+            let resultado = '';
+            for(let i = 0; i< msg.length; i++){
+                let letra = msg[i];
+                if(tabelaA.some(elem => elem === letra)){
+                    let indexMensagem = tabelaA.findIndex(elem => elem === letra);
+                    numeroConversao = (indexMensagem - indexChave) + tabelaA.length;
+                    resultado = `${resultado}${letra}`;
+                    continue
+                }
+                if(numeroConversao == -1){
+                    alert("Mensagem inválida!");
+                    return
+                }
+                let indexMensagem = tabelaB.findIndex(elem => elem === letra);
+                let index = (indexMensagem + numeroConversao)%24;
+                let letraR = tabelaA[index].toLowerCase();
+                resultado = `${resultado}${letraR}`;
+            }
+            alert(resultado);
+        }
+
+        const cifrar2 = () => {
+            if(!validar2()) return;
+            const msg = document.getElementById("mensagem2").value;
+            const chave = document.getElementById("chave2").value;
+            let numeroConversao = -1;
+            let indexChave = tabelaB.findIndex(elem => elem === chave);
+            let resultado = '';
+            let letraInicial = msg[0];
+            for(let i = 0; i< msg.length; i++){
+                let letra = msg[i];
+                if(i === 0){
+                    let indexMensagem = tabelaA.findIndex(elem => elem === letra);
+                    numeroConversao = (indexChave - indexMensagem) + tabelaA.length;
+                    resultado = `${resultado}${letra}`;
+                    continue
+                }
+                if(tabelaA.some(elem => elem === letra)){
+                    let indexMensagem = tabelaA.findIndex(elem => elem === letra);
+                    let index = (indexMensagem + numeroConversao)%24;
+                    indexChave = index;
+                    numeroConversao = (indexChave - indexMensagem) + tabelaA.length;
+                    resultado = `${resultado}${letra}`;
+                    continue
+                }
+                if(numeroConversao == -1){
+                    alert("Mensagem inválida!");
+                    return
+                }
+                let indexMensagem = tabelaA.findIndex(elem => elem === letra.toUpperCase());
+                let index = (indexMensagem + numeroConversao)%24;
+                resultado = `${resultado}${tabelaB[index]}`
+            }
+            alert(resultado);
+        }
+
+        const decifrar2 = () => {
+            if(!validar2()) return;
+            const msg = document.getElementById("mensagem2").value;
+            const chave = document.getElementById("chave2").value;
+            let numeroConversao = -1;
+            let indexChave = tabelaB.findIndex(elem => elem === chave);
+            let resultado = '';
+            let letraInicial = msg[0];
+            for(let i = 0; i< msg.length; i++){
+                let letra = msg[i];
+                if(i === 0){
+                    let indexMensagem = tabelaA.findIndex(elem => elem === letra);
+                    numeroConversao = (indexMensagem - indexChave) + tabelaA.length;
+                    resultado = `${resultado}${letra}`;
+                    continue
+                }
+                if(tabelaA.some(elem => elem === letra)){
+                    let indexMensagem = tabelaA.findIndex(elem => elem === letra);
+                    let index = (indexMensagem + numeroConversao)%24;
+                    indexChave = index;
+                    numeroConversao = (indexChave - indexMensagem) + tabelaA.length;
+                    resultado = `${resultado}${letra}`;
+                    continue
+                }
+                if(numeroConversao == -1){
+                    alert("Mensagem inválida!");
+                    return
+                }
+                let indexMensagem = tabelaB.findIndex(elem => elem === letra);
+                let index = (indexMensagem + numeroConversao)%24;
+                let letraR = tabelaA[index].toLowerCase();
+                resultado = `${resultado}${letraR}`;
+            }
+            alert(resultado);
+        }
+
+        const cifrar3 = () => {
+            if(!validar3()) return
+        }
+
+        const decifrar3 = () => {
+            if(!validar3()) return
+        }
+
+
+        
+    </script>
+</body>
+</html>
